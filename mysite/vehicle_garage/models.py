@@ -49,6 +49,6 @@ class Boat(models.Model):
     boat_service_interval = models.PositiveIntegerField(default=0) # Given that service interval means number of miles before service is needed
     boat_next_service = models.DateField(default=datetime.date.today)
 
-    # Returns the make, model, and year of all boats in the garage instead of the object type (ex. "Tesla Model 3 2021" instead of "Boat Object (1)" will be shown)
+    # Returns the make, model, and year of all boats in the garage instead of the object type (ex. "Tracker Topper 2019" instead of "Boat Object (1)" will be shown)
     def __str__(self):
         return f'{self.boat_make} {self.boat_model} {self.boat_year}'

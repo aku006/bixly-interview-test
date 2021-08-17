@@ -1,8 +1,3 @@
-# Serializers used to parse and render objects into a form that
-# can work with JSON
-# In this case, it converts the queryset for all vehicle objects
-# and allows their information to be stored in JSON format
-
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Car, Truck, Boat

@@ -1,6 +1,6 @@
-# Needed to translate HTTP requests to JSON
-# Gives relevant info of the model to the user
-# Also allows user to create and update new models
+# Serializers used to parse and render objects into a form that can work with JSON
+# In this case, it converts the queryset for all vehicle objects
+# and allows their information to be stored in JSON format
 from rest_framework import serializers
 from .models import Car, Truck, Boat
 

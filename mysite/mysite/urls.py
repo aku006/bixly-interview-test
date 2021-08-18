@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('vehicle_garage.urls')) # URL to the vehicle garage
+    path('', include('vehicle_garage.urls')), # URL to the vehicle garage
+    path('login/', include('rest_framework.urls'))
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .models import Car, Truck, Boat
 from .serializers import CarSerializer, TruckSerializer, BoatSerializer
 

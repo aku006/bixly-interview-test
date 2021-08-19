@@ -3,7 +3,7 @@ from . import views
 from rest_framework import routers
 
 # Router will generate the URLS for our models
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register('vehicle_garage/cars', views.CarView)
 router.register('vehicle_garage/trucks', views.TruckView)
 router.register('vehicle_garage/boats', views.BoatView)

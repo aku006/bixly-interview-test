@@ -4,6 +4,8 @@ from .models import Car, Truck, Boat
 from .serializers import CarSerializer, TruckSerializer, BoatSerializer
 from rest_framework.permissions import IsAuthenticated
 
+# Opted for using viewsets classes instead of APIView for HTTP requests
+
 # Displays the information from CarSerializer to the user
 class CarView(viewsets.ModelViewSet):
     queryset = Car.objects.all()

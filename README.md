@@ -2,7 +2,7 @@
 This interview test program uses a terminal (I used WSL Ubuntu, but any terminal should work) and Postman. This is a simple backend that holds a garage with cars, trucks, and boats, built using the Django Rest Framework and Simple JWT for authentication. Postman is used to send HTTP requests to this backend.
 
 # Setting Up
-After cloning this repo in your terminal of choice, go inside the folder and first set up and activate the virtual environment:
+Make sure that you have `python3` and `python3-venv` installed on your terminal. After cloning this repo in your terminal of choice, go inside the folder and first set up and activate the virtual environment:
 
     python3 -m venv env
     source env/bin/activate

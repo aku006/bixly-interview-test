@@ -5,6 +5,8 @@ from .serializers import CarSerializer, TruckSerializer, BoatSerializer
 from rest_framework.permissions import IsAuthenticated
 
 # Opted for using viewsets classes instead of APIView for HTTP requests
+# ModelViewSet used to get access to all default HTTP requests/operations:
+# 'list', 'retrieve', 'create', 'update', and 'destroy'
 
 # Displays the information from CarSerializer to the user
 class CarView(viewsets.ModelViewSet):

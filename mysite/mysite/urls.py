@@ -25,5 +25,5 @@ urlpatterns = [
     # Endpoints for Simple JWT
     path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'), # endpoint to get the first token
     path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'), # endpoint to allow token to be refreshed
-    path('api/token/verify', TokenVerifyView.as_view(), name='token_verify') # endpoint for token verification
+    path('api/token/verify', TokenVerifyView.as_view(), name='token_verify'), # endpoint for token verification
 ]

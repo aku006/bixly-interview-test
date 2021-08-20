@@ -44,7 +44,7 @@ class Boat(models.Model):
     boat_year = models.PositiveIntegerField(default=0)
     boat_length = models.PositiveIntegerField(default=0)
     boat_width = models.PositiveIntegerField(default=0)
-    boat_hin = models.CharField(max_length=17)
+    boat_hin = models.CharField(max_length=12)
     boat_curr_hours = models.PositiveIntegerField(default=0)
     boat_service_interval = models.PositiveIntegerField(default=0) # Given that service interval means number of miles before service is needed
     boat_next_service = models.DateField(default=datetime.date.today)

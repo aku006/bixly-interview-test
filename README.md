@@ -15,6 +15,12 @@ Once in `/mysite`, first update `pip` using `pip install --upgrade pip`. Then in
     djangorestframework-simplejwt==4.4.0
     PyJWT==1.7.1
 
+Documentation for these packages can be found here:
+* Django: https://docs.djangoproject.com/en/3.2/
+* Django Rest Framework: https://www.django-rest-framework.org/
+* Simple JWT: https://django-rest-framework-simplejwt.readthedocs.io/en/latest/
+* PyJWT: https://pyjwt.readthedocs.io/en/stable/
+
 Please install the mentioned version for SimpleJWT and PyJWT as listed above. This app also ran on Django Rest Framework version 3.12.4, so check if that version was installed, and if not, run `pip install djangorestframework==3.12.4` in the terminal.
 
 You can verify which version you are running by running `pip show <package-name>`.

@@ -8,19 +8,18 @@ After cloning this repo in your terminal of choice, go inside the folder and fir
     source env/bin/activate
     cd mysite
 
-Once in `/mysite`, follow these commands to install the packages needed to run this app:
-
-    pip install --upgrade pip
-    pip install django
-    pip install djangorestframework
-    pip install djangorestframework-simplejwt
+Once in `/mysite`, first update `pip` using `pip install --upgrade pip`. Then install the following packages using `pip`:
+    
+    django
+    djangorestframework
+    djangorestframework-simplejwt
 
 Then you need to migrate the files and create a superuser (follow the prompts for the superuser):
     
     python manage.py migrate
     python manage.py createsuperuser
     
-If you haven't done so yet, install Postman at the following URL: https://www.postman.com/downloads/
+If you haven't done so yet, install Postman at the following URL: https://www.postman.com/downloads/. You can create an account for Postman if you want, or you can just skip straight ahead to the app without doing so; I didn't need an account to use Postman.
 
 # Instructions For Testing the Server
 ## Authentication
@@ -59,13 +58,14 @@ Back in the first tab we have open, go to the Authorization tab, and in the drop
         "vehicle_garage/boats": "http://127.0.0.1:8000/vehicle_garage/boats"
     }
     
-This token will only last for ten minutes, however, and eventually, you'll hit a point where the response will tell you your token is invalid or expired. Whenever this happens, open up a new tab, and go to "http://127.0.0.1:8000/api/token/refresh" (no slash at the end!), making sure that `POST` is selected. Here, it will tell you that a "refresh" field is required, so go to the body tab, and enter "refresh" as your key and your refresh token as the value. This will then give you a new access token; replace your old expired token with this new one in whichever tab you're working with. You may want to leave this tab open in case you need to refresh your token again; unlike the access token, you can reuse the refresh token.
+This token will only last for ten minutes, however, and eventually your current token will expire. Whenever this happens, go to "http://127.0.0.1:8000/api/token/refresh" in a new tab (no slash at the end!), and send a `POST` request. Here, it will tell you that a "refresh" field is required, so go to the body tab, and enter "refresh" for your Key field and your refresh token for the Value. This will then give you a new access token; paste this new token in the tab you're working with to replace the old expired access token. You may want to leave this tab open in case you need to refresh your token again; unlike the access token, you can reuse the refresh token multiple times.
 
 ## Testing HTTP Requests (Cars)
 First, go to the cars link as shown ("http://127.0.0.1:8000/vehicle_garage/cars"). This will open up a new tab for you to work with. Before you do anything:
+
 1. Go to the Authorization tab.
 2. Select "Bearer Token" on the Type dropdown menu.
-The authentication token will carry over from the page you came from; if your token expires while you are still on this tab, make sure you update *this* tab's Authorization Bearer Token with your new access token after refreshing it.
+3. Paste your current access token into the "Token" space.
 
 This list should be empty by default, so we will first test out the `POST` HTTP request and create some new car models. Select `POST` from the dropdown menu, then go to the "Body" tab and select "form-data." Add the following fields to the Key column:
 * car_make
@@ -83,9 +83,10 @@ Some things to note for the fields:
 * `car_vin` must be at most 17 characters (preferably 17 exactly)
 * `car_next_service` must be formatted as YYYY-MM-DD
 * `car_curr_mileage` and `car_service_interval` is meant to be represented in miles
-Not following the first three points will not allow you to create a new car or update an existing one.
 
-We will add three cars; these can be any of your choosing. You can use a random VIN generator for the `car_vin` field. Fill in all of the respective fields in the Value column, and then send a `POST` request after they have been filled out. Each time you send a working `POST` request, you should get something like this in the response menu:
+Not following the first three points will not allow you to create a new car or update an existing one. However, you are free to test that out if you wish, if you want to try running a negative test (ex. put a negative number for `car_year`, more than 17 characters for `car_vin`, or the wrong date format for `car_next_service`).
+
+We will add three cars; these cars can be any of your choosing, so long as their values are entered correctly in the Postman data form. You can use a random VIN generator for the `car_vin` field to save some time. Fill in all of the respective fields in the Value column, and then send a `POST` request after they have been filled out. Each time you send a working `POST` request, you should get something like this in the response menu:
 
     {
         "id": <id number>,
@@ -103,18 +104,18 @@ We will add three cars; these can be any of your choosing. You can use a random 
 
 The "id" value is set by the app; you don't need to touch this value ever. You should now have three cars in the garage. To test out the `GET` request and get a list of cars in the garage, simply type in "http://127.0.0.1:8000/vehicle_garage/cars" in the address bar (if it isn't already), set the HTTP request to `GET`, and send it. The response menu should return to you the three vehicles that you just created.
 
-To test the `GET` HTTP request and read the information on a specific car, append the ID number of the car you wish to change to the address bar ("http://127.0.0.1:8000/vehicle_garage/cars/:id", where :id is the ID number associated with the car you want to single out). For this case, we'll do the second car in the list, so add that car's ID to the end of the URL (in "/:id" format). This should return to you all the information about the second car in the list.
+To test the `GET` HTTP request and read the information on a specific car, append the ID number of the car you wish to change to the address bar ("http://127.0.0.1:8000/vehicle_garage/cars/:id", where :id is the ID number associated with the car you want to single out). For this case, we'll do the third car in the list, so add that car's ID to the end of the URL (in "/:id" format; the URL at this point should be "http://127.0.0.1:8000/vehicle_garage/cars/3"). This should return to you all the information about the third car in the list.
 
-Next we'll test the `PUT` HTTP request (and the `UPDATE` operation). Here, you should be able to change any variables you would like. For now, let's change the year and color of your selected car. Once you have changed the values (make sure that they're valid!), change the HTTP request to `PUT`, and then send it. You should see in the response menu the changes that you made. For example, if your `car_color` field said "Red" before and you changed the field to "Silver," the response menu should reflect that change.
+Next we'll test the `PUT` HTTP request (and the `UPDATE` operation). Here, you should be able to change any variables you would like. For now, let's change the year and color of the third car. Once you have changed the values (make sure that they're valid!), change the HTTP request to `PUT`, and then send it. You should see in the response menu the changes that you made. For example, if your `car_color` field said "Red" before and you changed the field to "Silver," the response menu should reflect that change.
 
-Finally, we will test the `DELETE` HTTP request and delete a car from the garage. To test that out, we'll delete the current car that we're at, which should be the second car. To do that, make sure that the URL is correct and set directly to that car's ID, then simply select `DELETE` from the HTTP request dropdown menu and send the request. If you list the cars again, you should notice that the car you deleted is gone.
+Finally, we will test the `DELETE` HTTP request and delete a car from the garage. To test that out, we'll delete the current car that we're at, which should be the third car. To do that, make sure that the URL is correct and set directly to that car's ID, then simply select `DELETE` from the HTTP request dropdown menu and send the request. If you list the cars again, you should notice that the car you deleted is gone.
 
 And that tests all the HTTP requests required for this interview for the car garage!
 
 ## Testing the Other Vehicles
 The testing process for trucks and boats is basically the exact same: go to their respective URLS (updating their access tokens as needed), create three trucks or boats, list them, get data from the second truck or boat, update the year and color, and then delete it. The fields for these vehicles are different, however.
 
-Truck:
+Truck fields:
 * truck_make
 * truck_model
 * truck_year
@@ -132,9 +133,8 @@ Some things to note about the truck fields:
 * `truck_next_service` must be formatted as YYYY-MM-DD
 * `truck_curr_mileage` and `truck_service_interval` is meant to be represented in miles
 * `truck_bed_length` is meant to be represented in inches
-Not following the first three points will not allow you to create a new truck or update an existing one.
 
-Boat:
+Boat fields:
 * boat_make
 * boat_model
 * boat_year
@@ -151,7 +151,8 @@ Things to note about the boat fields:
 * `boat_next_service` must be formatted as YYYY-MM-DD
 * `boat_length` and `boat_width` is meant to be represented in inches
 * `boat_service_interval` is meant to be represented in number of hours
-Not following the first three points will not allow you to create a new boat or update an existing one.
+
+Not following the first three points of either trucks or boats, as listed above, will not allow you to create a new truck or boat or update an existing one. Again, however, you can test this out for yourself if you like.
 
 ## Ending Testing
 Once you have ran these tests, you can close all the tabs first (don't worry about saving them), and then close Postman. On the terminal side, run `Ctrl + C` to stop the server, then run `deactivate` in the terminal to close the virtual environment.

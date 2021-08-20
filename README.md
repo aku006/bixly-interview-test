@@ -12,7 +12,12 @@ Once in `/mysite`, first update `pip` using `pip install --upgrade pip`. Then in
     
     django
     djangorestframework
-    djangorestframework-simplejwt
+    djangorestframework-simplejwt==4.4.0
+    PyJWT==1.7.1
+
+Please install the mentioned version for SimpleJWT and PyJWT as listed above. This app also ran on Django Rest Framework version 3.12.4, so check if that version was installed, and if not, run `pip install djangorestframework==3.12.4` in the terminal.
+
+You can verify which version you are running by running `pip show <package-name>`.
 
 Then you need to migrate the files and create a superuser (follow the prompts for the superuser):
     
@@ -27,7 +32,7 @@ To run this app, go to your terminal and run this command: `python3 manage.py ru
 
 In case you have never used Postman before, in general, Postman works by sending an HTTP request to the URL in the address bar. To the left of the address bar is a dropdown menu with a list of HTTP methods, such as `GET`, `POST`, and `DELETE`; to the right of the address bar is a blue button, "Send," which will send the type of request you make to this URL. Right below that is a number of headers with some space below it; this is where you enter your data for the HTTP request to use. Below that is the response menu that returns to you the data from each HTTP request. You can also open multiple tabs the same way you would in a browser at the top.
 
-First, open up a new tab and enter the address shown in the terminal into the address bar. It should say something like "http://127.0.0.1:8000/." Select `GET` from the request dropdown menu, and then hit send. You should see a message in the Response menu:
+First, open up a new tab in Postman and enter the address shown in the terminal into the address bar. It should say something like "http://127.0.0.1:8000/." Select `GET` from the request dropdown menu, and then hit send. You should see a message in the Response menu:
 
     {
         "detail": "Authentication credentials were not provided."

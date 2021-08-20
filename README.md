@@ -85,7 +85,7 @@ Some things to note for the fields:
 * `car_curr_mileage` and `car_service_interval` is meant to be represented in miles
 Not following the first three points will not allow you to create a new car or update an existing one.
 
-Add three cars; these can be any of your choosing. You can use a random VIN generator for the `car_vin` field. Fill in the respective fields, and then send a `POST` request after all have been filled out. Each time you send a working `POST` request, you should get something like this in the response menu:
+We will add three cars; these can be any of your choosing. You can use a random VIN generator for the `car_vin` field. Fill in all of the respective fields in the Value column, and then send a `POST` request after they have been filled out. Each time you send a working `POST` request, you should get something like this in the response menu:
 
     {
         "id": <id number>,
@@ -99,7 +99,7 @@ Add three cars; these can be any of your choosing. You can use a random VIN gene
         "car_service_interval": <the interval in miles you put down>,
         "car_next_service": <the date you entered>
     }
-(Everything in the angle bracket is what you put down.)
+(Everything within the angle brackets is what you explictly put down.)
 
 The "id" value is set by the app; you don't need to touch this value ever. You should now have three cars in the garage. To test out the `GET` request and get a list of cars in the garage, simply type in "http://127.0.0.1:8000/vehicle_garage/cars" in the address bar (if it isn't already), set the HTTP request to `GET`, and send it. The response menu should return to you the three vehicles that you just created.
 
@@ -153,5 +153,5 @@ Things to note about the boat fields:
 * `boat_service_interval` is meant to be represented in number of hours
 Not following the first three points will not allow you to create a new boat or update an existing one.
 
-## What To Do After
+## Ending Testing
 Once you have ran these tests, you can close all the tabs first (don't worry about saving them), and then close Postman. On the terminal side, run `Ctrl + C` to stop the server, then run `deactivate` in the terminal to close the virtual environment.

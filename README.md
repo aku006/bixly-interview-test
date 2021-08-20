@@ -59,4 +59,30 @@ Back in the first tab we have open, go to the Authorization tab, and in the drop
         "vehicle_garage/boats": "http://127.0.0.1:8000/vehicle_garage/boats"
     }
     
-This token will only last for five minutes, however, and eventually, you'll hit a point where the response will tell you to refresh your token. In that case, open up a new tab, and go to "http://127.0.0.1:8000/api/token/refresh" (no slash at the end!), making sure that `POST` is selected. Here, it will tell you that a "refresh" field is required, so go to the body tab, and enter "refresh" as your key and your refresh token as the value. This will then give you a new access token; replace your old expired token with this new one in whichever tab you're working with.
+This token will only last for ten minutes, however, and eventually, you'll hit a point where the response will tell you your token is invalid or expired. Whenever this happens, open up a new tab, and go to "http://127.0.0.1:8000/api/token/refresh" (no slash at the end!), making sure that `POST` is selected. Here, it will tell you that a "refresh" field is required, so go to the body tab, and enter "refresh" as your key and your refresh token as the value. This will then give you a new access token; replace your old expired token with this new one in whichever tab you're working with. You may want to leave this tab open in case you need to refresh your token again; unlike the access token, you can reuse the refresh token.
+
+## Testing HTTP Requests
+First, go to the cars link as shown ("http://127.0.0.1:8000/vehicle_garage/cars"). This will open up a new tab for you to work with. Before you do anything:
+1. Go to the Authorization tab.
+2. Select "Bearer Token" on the Type dropdown menu.
+The authentication token will carry over from the page you came from; if your token expires while you are still on this tab, make sure you update *this* tab's Authorization Bearer Token with your new access token after refreshing it.
+
+This list will be empty by default, so we will first test out the `POST` HTTP request to `CREATE` some new car models. Select `POST` from the dropdown menu, then go to the "Body" tab and select "form-data." Add the following fields to the Key column:
+* car_make
+* car_model
+* car_year
+* car_seats
+* car_color
+* car_vin
+* car_curr_mileage
+* car_service_interval
+* car_next_service
+
+Some things to note for the values:
+* `car_year`, `car_seats`, `car_curr_mileage`, and `car_service_interval` must all be positive integers
+* `car_vin` must be 17 characters
+* `car_next_service` must be formatted as YYYY-MM-DD
+
+Not following any of these rules will not allow you to send a `POST` request and create a new car.
+
+Add three cars; these can be any of your choosing. You can use a random VIN generator for the `car_vin` field. Fill in the respective fields, and then send a `POST` request after all have been filled out. Each time you fill

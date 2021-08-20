@@ -61,7 +61,7 @@ Back in the first tab we have open, go to the Authorization tab, and in the drop
     
 This token will only last for ten minutes, however, and eventually, you'll hit a point where the response will tell you your token is invalid or expired. Whenever this happens, open up a new tab, and go to "http://127.0.0.1:8000/api/token/refresh" (no slash at the end!), making sure that `POST` is selected. Here, it will tell you that a "refresh" field is required, so go to the body tab, and enter "refresh" as your key and your refresh token as the value. This will then give you a new access token; replace your old expired token with this new one in whichever tab you're working with. You may want to leave this tab open in case you need to refresh your token again; unlike the access token, you can reuse the refresh token.
 
-## Testing HTTP Requests
+## Testing HTTP Requests (Cars)
 First, go to the cars link as shown ("http://127.0.0.1:8000/vehicle_garage/cars"). This will open up a new tab for you to work with. Before you do anything:
 1. Go to the Authorization tab.
 2. Select "Bearer Token" on the Type dropdown menu.

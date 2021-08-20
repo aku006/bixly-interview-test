@@ -67,7 +67,7 @@ First, go to the cars link as shown ("http://127.0.0.1:8000/vehicle_garage/cars"
 2. Select "Bearer Token" on the Type dropdown menu.
 The authentication token will carry over from the page you came from; if your token expires while you are still on this tab, make sure you update *this* tab's Authorization Bearer Token with your new access token after refreshing it.
 
-This list will be empty by default, so we will first test out the `POST` HTTP request to `CREATE` some new car models. Select `POST` from the dropdown menu, then go to the "Body" tab and select "form-data." Add the following fields to the Key column:
+This list should be empty by default, so we will first test out the `POST` HTTP request and create some new car models. Select `POST` from the dropdown menu, then go to the "Body" tab and select "form-data." Add the following fields to the Key column:
 * car_make
 * car_model
 * car_year
@@ -78,11 +78,80 @@ This list will be empty by default, so we will first test out the `POST` HTTP re
 * car_service_interval
 * car_next_service
 
-Some things to note for the values:
+Some things to note for the fields:
 * `car_year`, `car_seats`, `car_curr_mileage`, and `car_service_interval` must all be positive integers
-* `car_vin` must be 17 characters
+* `car_vin` must be at most 17 characters (preferably 17 exactly)
 * `car_next_service` must be formatted as YYYY-MM-DD
+* `car_curr_mileage` and `car_service_interval` is meant to be represented in miles
+Not following the first three points will not allow you to create a new car or update an existing one.
 
-Not following any of these rules will not allow you to send a `POST` request and create a new car.
+Add three cars; these can be any of your choosing. You can use a random VIN generator for the `car_vin` field. Fill in the respective fields, and then send a `POST` request after all have been filled out. Each time you send a working `POST` request, you should get something like this in the response menu:
 
-Add three cars; these can be any of your choosing. You can use a random VIN generator for the `car_vin` field. Fill in the respective fields, and then send a `POST` request after all have been filled out. Each time you fill
+    {
+        "id": <id number>,
+        "car_make": <your car make>,
+        "car_model": <your car model>,
+        "car_year": <the year>,
+        "car_seats": <the number of car seats>,
+        "car_color": <the car color>,
+        "car_vin": <the vin number>,
+        "car_curr_mileage": <the number of miles driven>,
+        "car_service_interval": <the interval in miles you put down>,
+        "car_next_service": <the date you entered>
+    }
+(Everything in the angle bracket is what you put down.)
+
+The "id" value is set by the app; you don't need to touch this value ever. You should now have three cars in the garage. To test out the `GET` request and get a list of cars in the garage, simply type in "http://127.0.0.1:8000/vehicle_garage/cars" in the address bar (if it isn't already), set the HTTP request to `GET`, and send it. The response menu should return to you the three vehicles that you just created.
+
+To test the `GET` HTTP request and read the information on a specific car, append the ID number of the car you wish to change to the address bar ("http://127.0.0.1:8000/vehicle_garage/cars/:id", where :id is the ID number associated with the car you want to single out). For this case, we'll do the second car in the list, so add that car's ID to the end of the URL (in "/:id" format). This should return to you all the information about the second car in the list.
+
+Next we'll test the `PUT` HTTP request (and the `UPDATE` operation). Here, you should be able to change any variables you would like. For now, let's change the year and color of your selected car. Once you have changed the values (make sure that they're valid!), change the HTTP request to `PUT`, and then send it. You should see in the response menu the changes that you made. For example, if your `car_color` field said "Red" before and you changed the field to "Silver," the response menu should reflect that change.
+
+Finally, we will test the `DELETE` HTTP request and delete a car from the garage. To test that out, we'll delete the current car that we're at, which should be the second car. To do that, make sure that the URL is correct and set directly to that car's ID, then simply select `DELETE` from the HTTP request dropdown menu and send the request. If you list the cars again, you should notice that the car you deleted is gone.
+
+And that tests all the HTTP requests required for this interview for the car garage!
+
+## Testing the Other Vehicles
+The testing process for trucks and boats is basically the exact same: go to their respective URLS (updating their access tokens as needed), create three trucks or boats, list them, get data from the second truck or boat, update the year and color, and then delete it. The fields for these vehicles are different, however.
+
+Truck:
+* truck_make
+* truck_model
+* truck_year
+* truck_seats
+* truck_bed_length
+* truck_color
+* truck_vin
+* truck_curr_mileage
+* truck_service_interval
+* truck_next_service
+
+Some things to note about the truck fields:
+* `truck_year`, `truck_seats`, `truck_bed_length`, `truck_curr_mileage`, and `truck_service_interval` must all be positive integers
+* `truck_vin` must be at most 17 characters (preferably 17 exactly)
+* `truck_next_service` must be formatted as YYYY-MM-DD
+* `truck_curr_mileage` and `truck_service_interval` is meant to be represented in miles
+* `truck_bed_length` is meant to be represented in inches
+Not following the first three points will not allow you to create a new truck or update an existing one.
+
+Boat:
+* boat_make
+* boat_model
+* boat_year
+* boat_length
+* boat_width
+* boat_hin
+* boat_curr_hours
+* boat_service_interval
+* boat_next_service
+
+Things to note about the boat fields:
+* `boat_year`, `boat_length`, `boat_width`, `boat_curr_hours`, and `boat_service_interval` must all be positive integers
+* `boat_hin` should be 12 characters at the most (preferably 12 exactly)
+* `boat_next_service` must be formatted as YYYY-MM-DD
+* `boat_length` and `boat_width` is meant to be represented in inches
+* `boat_service_interval` is meant to be represented in number of hours
+Not following the first three points will not allow you to create a new boat or update an existing one.
+
+## What To Do After
+Once you have ran these tests, you can close all the tabs first (don't worry about saving them), and then close Postman. On the terminal side, run `Ctrl + C` to stop the server, then run `deactivate` in the terminal to close the virtual environment.
